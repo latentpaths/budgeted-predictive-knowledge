@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying NeurIPS 2026 NEmo workshop paper when using this code or data."
+title: "Which Predictions Are Worth Updating? Budgeted Predictive Knowledge for Long-Horizon Agents"
+type: software
+authors:
+  - family-names: Bodade
+    given-names: Ayush
+    affiliation: Independent Researcher
+    email: ayush@latentpaths.com
+version: 0.1.0
+license: MIT
+url: "https://latentpaths.com/projects/budgeted-predictive-knowledge"
+repository-code: "https://github.com/stochi0/budgeted-predictive-knowledge"
+preferred-citation:
+  type: conference-paper
+  license: CC-BY-4.0
+  authors:
+    - family-names: Bodade
+      given-names: Ayush
+      affiliation: Independent Researcher
+      email: ayush@latentpaths.com
+  title: "Which Predictions Are Worth Updating? Budgeted Predictive Knowledge for Long-Horizon Agents"
+  year: 2026
+  collection-title: "Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 Workshop"
+  notes: "Accepted poster; non-archival workshop paper."
+  url: "https://latentpaths.com/projects/budgeted-predictive-knowledge"

@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+.env.*
+!.env.example
+/output/
+dist/
+build/
+*.egg-info/
+.cursor/
+.opencode/
+AGENTS.md
+.DS_Store
+
+# Manuscript build products; current editable sources belong in the repository.
+paper/
+output/
+.notion-id

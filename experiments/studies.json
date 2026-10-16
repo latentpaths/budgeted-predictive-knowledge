@@ -1,0 +1,312 @@
+{
+  "version": 2,
+  "experiment_catalog": [
+    {
+      "id": "budget_allocation",
+      "name": "Budget allocation",
+      "question": "Which records should receive updates at each budget?",
+      "condition_groups": ["primary_budget_sweep"]
+    },
+    {
+      "id": "missing_dependencies",
+      "name": "Missing dependencies",
+      "question": "How does incomplete dependency information affect selection?",
+      "condition_groups": ["missing_dependencies"]
+    },
+    {
+      "id": "cross_model_comparison",
+      "name": "Cross-model comparison",
+      "question": "Do the selection gains hold across other policies?",
+      "condition_groups": ["gpt_static", "glm_static", "qwen_static"],
+      "reference_experiment_ids": ["budget_allocation"],
+      "reference_note": "Also compares the Qwen3-30B results at four records per update step from Budget allocation; those episodes are counted there only."
+    },
+    {
+      "id": "feedback_and_joint_selection",
+      "name": "Feedback and joint selection",
+      "question": "Does execution feedback help, and does selecting updates jointly add value?",
+      "condition_groups": ["gpt_feedback", "qwen_feedback"]
+    }
+  ],
+  "transport": {
+    "base_url": "https://api.pinference.ai/api/v1",
+    "timeout_seconds": 180,
+    "concurrency": 8,
+    "rate_limit": {
+      "max_attempts": 6,
+      "min_delay_seconds": 15,
+      "max_delay_seconds": 120
+    },
+    "default_request": {
+      "temperature": 0,
+      "max_tokens": 768
+    }
+  },
+  "request_options": {
+    "openai/gpt-4.1-mini": {
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "z-ai/glm-5.3-flash": {
+      "response_format": {
+        "type": "json_object"
+      },
+      "max_tokens": 8192,
+      "extra_body": {
+        "reasoning": {
+          "effort": "low"
+        }
+      }
+    },
+    "qwen/qwen3.6-35b-a3b": {
+      "response_format": {
+        "type": "json_object"
+      },
+      "max_tokens": 8192,
+      "extra_body": {
+        "reasoning": {
+          "enabled": false
+        }
+      }
+    }
+  },
+  "prices": {
+    "qwen/qwen3-30b-a3b-instruct-2507": {
+      "input": 0.13,
+      "output": 0.52
+    },
+    "openai/gpt-4.1-mini": {
+      "input": 0.4,
+      "output": 1.6
+    },
+    "qwen/qwen3.6-35b-a3b": {
+      "input": 0.25,
+      "output": 1.25
+    },
+    "z-ai/glm-5.3-flash": {
+      "input": 0.15,
+      "output": 0.5
+    }
+  },
+  "diagnostics": {
+    "excluded_transport_collection": {
+      "reason": "Provider rate limiting under initial transport; entire collection interrupted and replaced by fresh seeds for all selectors.",
+      "logged_calls": 1101,
+      "completed_episodes": 105,
+      "rate_limit_errors": 127,
+      "initial_seeds": [
+        3000,
+        3023
+      ],
+      "replacement_seeds": [
+        4000,
+        4023
+      ],
+      "prompt_tokens": 1245806,
+      "completion_tokens": 1162096,
+      "excluded_from_results": true
+    }
+  },
+  "studies": {
+    "primary_static": {
+      "max_calls": 11000,
+      "transport": {
+        "timeout_seconds": 90,
+        "concurrency": 24,
+        "rate_limit": {
+          "max_attempts": 1
+        }
+      },
+      "condition_groups": [
+        {
+          "name": "primary_budget_sweep",
+          "model": "qwen/qwen3-30b-a3b-instruct-2507",
+          "seed_start": 1000,
+          "seeds": 24,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "even_spacing",
+            "random",
+            "change_risk",
+            "dependency_importance",
+            "risk_dependency"
+          ],
+          "budget_fractions": [
+            0.1,
+            0.2,
+            0.3
+          ],
+          "controls": [
+            "no_updates",
+            "all_records"
+          ]
+        },
+        {
+          "name": "missing_dependencies",
+          "model": "qwen/qwen3-30b-a3b-instruct-2507",
+          "seed_start": 1000,
+          "seeds": 12,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "dependency_importance",
+            "risk_dependency"
+          ],
+          "budget_fractions": [
+            0.2
+          ],
+          "missing_edge_fractions": [
+            0.3,
+            0.6
+          ]
+        }
+      ]
+    },
+    "gpt_static": {
+      "max_calls": 1500,
+      "transport": {
+        "timeout_seconds": 90,
+        "concurrency": 12,
+        "rate_limit": {
+          "max_attempts": 1
+        }
+      },
+      "condition_groups": [
+        {
+          "name": "gpt_static",
+          "model": "openai/gpt-4.1-mini",
+          "seed_start": 2000,
+          "seeds": 12,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "random",
+            "change_risk",
+            "dependency_importance",
+            "risk_dependency"
+          ],
+          "budget_fractions": [
+            0.2
+          ],
+          "controls": [
+            "no_updates",
+            "all_records"
+          ]
+        }
+      ]
+    },
+    "additional_static": {
+      "max_calls": 5800,
+      "condition_groups": [
+        {
+          "name": "glm_static",
+          "model": "z-ai/glm-5.3-flash",
+          "seed_start": 4000,
+          "seeds": 24,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "random",
+            "change_risk",
+            "dependency_importance",
+            "risk_dependency"
+          ],
+          "budget_fractions": [
+            0.2
+          ],
+          "controls": [
+            "no_updates",
+            "all_records"
+          ]
+        },
+        {
+          "name": "qwen_static",
+          "model": "qwen/qwen3.6-35b-a3b",
+          "seed_start": 4000,
+          "seeds": 24,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "random",
+            "change_risk",
+            "dependency_importance",
+            "risk_dependency"
+          ],
+          "budget_fractions": [
+            0.2
+          ],
+          "controls": [
+            "no_updates",
+            "all_records"
+          ]
+        }
+      ]
+    },
+    "feedback": {
+      "max_calls": 2400,
+      "transport": {
+        "rate_limit": {
+          "max_attempts": 1
+        }
+      },
+      "condition_groups": [
+        {
+          "name": "gpt_feedback",
+          "model": "openai/gpt-4.1-mini",
+          "seed_start": 5000,
+          "seeds": 12,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "random",
+            "risk_dependency",
+            "feedback_risk",
+            "feedback_risk_dependency",
+            "joint"
+          ],
+          "budget_fractions": [
+            0.2
+          ],
+          "controls": [
+            "all_records"
+          ]
+        },
+        {
+          "name": "qwen_feedback",
+          "model": "qwen/qwen3.6-35b-a3b",
+          "seed_start": 5000,
+          "seeds": 12,
+          "tasks": [
+            "dag",
+            "precedence_chains"
+          ],
+          "selectors": [
+            "risk_dependency",
+            "feedback_risk",
+            "joint"
+          ],
+          "budget_fractions": [
+            0.2
+          ],
+          "controls": [
+            "all_records"
+          ]
+        }
+      ]
+    }
+  }
+}
