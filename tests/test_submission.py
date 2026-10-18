@@ -19,10 +19,48 @@ SPEC.loader.exec_module(submission)
 @pytest.fixture
 def workspace(tmp_path):
     root = tmp_path / "repository"
-    for path in submission.repository_files(ROOT):
-        destination = root / path.relative_to(ROOT)
+    # Public tests construct manuscript inputs instead of reading private sources.
+    for name in (
+        ".env.example",
+        ".gitignore",
+        ".python-version",
+        "README.md",
+        "LICENSE",
+        "docs/LICENSE-CC-BY-4.0",
+        "docs/submission.md",
+        "docs/reproduction.md",
+        "pyproject.toml",
+        "uv.lock",
+        "paper.pdf",
+        "scripts/package_submission.py",
+        "experiments/README.md",
+        "experiments/studies.json",
+        "experiments/episode_results.jsonl",
+        "tests/fixtures/numerical_reference.json",
+        "tests/fixtures/protocol_reference.json",
+    ):
+        destination = root / name
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(path, destination)
+        shutil.copy2(ROOT / name, destination)
+    shutil.copytree(
+        ROOT / "src", root / "src", ignore=shutil.ignore_patterns("__pycache__")
+    )
+    for test in (ROOT / "tests").glob("test_*.py"):
+        shutil.copy2(test, root / "tests" / test.name)
+    for name in (
+        "paper/README.md",
+        "paper/main.tex",
+        "paper/neurips_2026.sty",
+        "paper/build.py",
+        "paper/render.py",
+        "paper/pyproject.toml",
+        "paper/uv.lock",
+        "paper/tests/test_build.py",
+        "paper/tests/fixtures/latex_reference.json",
+    ):
+        destination = root / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text("author input fixture\n")
     report = root / "paper/build/verification.json"
     report.parent.mkdir(parents=True, exist_ok=True)
     report.write_text(
@@ -54,6 +92,19 @@ def test_archives_are_reproducible_and_exclude_private_and_old_files(
     for name in ("paper-source.zip", "supplementary-code.zip"):
         assert (first / name).read_bytes() == (second / name).read_bytes()
         with ZipFile(first / name) as archive:
+            assert any(member.endswith("LICENSE") for member in archive.namelist())
+            assert any(
+                member.endswith("docs/LICENSE-CC-BY-4.0")
+                for member in archive.namelist()
+            )
+            if name == "paper-source.zip":
+                citation = archive.read("paper-source/CITATION.md").decode()
+                assert "@misc{bodade2026budgeted" in citation
+            else:
+                assert (
+                    "budgeted-predictive-knowledge/src/budgeted_predictive_knowledge/cli.py"
+                    in archive.namelist()
+                )
             assert not any(
                 part in {".env", ".venv", "build", "output", "previous.pdf"}
                 for member in archive.namelist()
@@ -69,4 +120,11 @@ def test_changed_manuscript_input_cannot_be_packaged(workspace, tmp_path):
     output = tmp_path / "submission"
     with pytest.raises(ValueError, match="inputs changed after verification"):
         submission.package(workspace, output)
+    assert not output.exists()
+
+
+def test_public_checkout_explains_author_packaging_requirement(tmp_path):
+    output = tmp_path / "submission"
+    with pytest.raises(ValueError, match="author-local paper/"):
+        submission.package(tmp_path, output)
     assert not output.exists()

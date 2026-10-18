@@ -10,8 +10,11 @@ specify the NeurIPS 2026 style with `sglblindworkshop`, four main pages for
 short papers, and references and appendices outside that limit. The
 [camera-ready deadline](https://nemo.semantic.review/#dates) is October 31, 2026.
 
-This repository prepares the files for submission. It does not upload them to
-OpenReview or modify the existing submission.
+This is an author workflow. It requires the local `paper/` manuscript sources,
+build tools, venue style, and verified build report, which are not included in
+the public checkout. Public numerical reproduction needs none of those files;
+see [reproduction](reproduction.md). The packaging command does not upload files
+to OpenReview or modify the existing submission.
 
 ## Files to upload
 
@@ -25,8 +28,7 @@ Run the commands below to write one current set under `output/submission/`:
 | `manifest.json` | Artifact checksums, episode counts, manuscript input hashes, and archive verification status |
 
 The root `paper.pdf` is the canonical manuscript. Build copies and the PDF in
-the upload directory are generated from it. There are no separate old manuscripts
-or alternate implementations in the repository.
+the upload directory are generated from it. Manuscript build products remain local.
 
 ## Prepare and verify
 
@@ -88,4 +90,4 @@ references are regression checks, rather than older versions of the paper.
 Code and software documentation use MIT; author-owned paper content, original
 figures, and original results use CC BY 4.0. Third-party material, including the
 retained venue style, keeps its existing terms. Both archives include the
-applicable license and citation files.
+applicable licenses and README citation.
