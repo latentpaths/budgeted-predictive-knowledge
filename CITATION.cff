@@ -10,7 +10,7 @@ authors:
 version: 0.1.0
 license: MIT
 url: "https://latentpaths.com/projects/budgeted-predictive-knowledge"
-repository-code: "https://github.com/stochi0/budgeted-predictive-knowledge"
+repository-code: "https://github.com/latentpaths/budgeted-predictive-knowledge"
 preferred-citation:
   type: conference-paper
   license: CC-BY-4.0

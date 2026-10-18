@@ -11,7 +11,7 @@ from tempfile import TemporaryDirectory
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 ROOT = Path(__file__).resolve().parents[1]
-REPOSITORY = "https://github.com/stochi0/budgeted-predictive-knowledge"
+REPOSITORY = "https://github.com/latentpaths/budgeted-predictive-knowledge"
 
 
 def checksum(path: Path) -> str:

@@ -55,7 +55,7 @@ defines the protocol and analysis.
 Use Python 3.12 and [uv](https://docs.astral.sh/uv/):
 
 ```sh
-git clone https://github.com/stochi0/budgeted-predictive-knowledge.git
+git clone https://github.com/latentpaths/budgeted-predictive-knowledge.git
 cd budgeted-predictive-knowledge
 uv sync --locked
 uv run --locked bpk validate
