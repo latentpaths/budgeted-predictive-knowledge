@@ -1,0 +1,31 @@
+[project]
+name = "budgeted-predictive-knowledge"
+version = "0.1.0"
+description = "Budgeted predictive-knowledge updates: experiments and offline result reproduction"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE", "docs/LICENSE-CC-BY-4.0"]
+requires-python = ">=3.12"
+dependencies = ["matplotlib>=3.11.2", "numpy>=2.5.3"]
+
+[project.optional-dependencies]
+inference = ["openai>=3.13.0", "python-dotenv>=1.2.3"]
+
+[project.scripts]
+bpk = "budgeted_predictive_knowledge.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.12,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "ruff>=0.16.7"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint.per-file-ignores]
+"src/budgeted_predictive_knowledge/figures.py" = ["E402"]
