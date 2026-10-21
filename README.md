@@ -1,3 +1,7 @@
+<p>
+  <a href="https://www.latentpaths.com/"><img src="https://raw.githubusercontent.com/latentpaths/.github/main/assets/latent-paths-wordmark.png" alt="Latent Paths" width="280"></a>
+</p>
+
 # Which predictions are worth updating?
 
 An agent has stale predictions and a limited budget for refreshing them. This
