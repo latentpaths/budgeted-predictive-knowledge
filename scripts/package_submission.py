@@ -25,10 +25,7 @@ def repository_files(root: Path) -> list[Path]:
         ".gitignore",
         ".python-version",
         "README.md",
-        "docs/submission.md",
-        "docs/reproduction.md",
         "LICENSE",
-        "docs/LICENSE-CC-BY-4.0",
         "pyproject.toml",
         "uv.lock",
         "paper.pdf",
@@ -79,7 +76,7 @@ def package(root: Path, output: Path) -> dict:
     if not report_path.is_file():
         raise ValueError(
             "Submission packaging requires author-local paper/ sources and a verified "
-            "build; see docs/submission.md. Use bpk reproduce for public results."
+            "build; see README.md#prepare-the-paper-submission. Use bpk reproduce for public results."
         )
     report = json.loads(report_path.read_text())
     if report["main_pages"] != 4 or report["sha256"] != checksum(root / "paper.pdf"):
@@ -107,14 +104,15 @@ def package(root: Path, output: Path) -> dict:
         + sorted((root / "paper/generated").glob("*.tex"))
         + sorted((root / "paper/generated").glob("*.pdf"))
     }
-    for name in ("LICENSE", "docs/LICENSE-CC-BY-4.0"):
-        source[f"paper-source/{name}"] = (root / name).read_bytes()
+    source["paper-source/LICENSE"] = (root / "LICENSE").read_bytes().replace(
+        b"README.md#citation", b"CITATION.md"
+    )
     source["paper-source/README.md"] = (
         b"# Manuscript source\n\n"
         b"Compile from this directory with `tectonic main.tex`. Generated tables and "
         b"figures are included; Python and inference credentials are not required.\n\n"
         b"Author-owned manuscript content uses CC BY 4.0. The retained NeurIPS "
-        b"style keeps its existing terms. See LICENSE and docs/LICENSE-CC-BY-4.0.\n\n"
+        b"style keeps its existing terms. See LICENSE.\n\n"
         b"Citation is in CITATION.md.\n"
     )
     _, opening, citation = (root / "README.md").read_text().partition("```bibtex\n")
@@ -124,9 +122,6 @@ def package(root: Path, output: Path) -> dict:
     source["paper-source/CITATION.md"] = (
         "# Citation\n\n```bibtex\n" + bibtex + "\n```\n"
     ).encode()
-    source["paper-source/docs/LICENSE-CC-BY-4.0"] = source[
-        "paper-source/docs/LICENSE-CC-BY-4.0"
-    ].replace(b"../README.md#citation", b"../CITATION.md")
     write_archive(output / "paper-source.zip", source)
     write_archive(
         output / "supplementary-code.zip",

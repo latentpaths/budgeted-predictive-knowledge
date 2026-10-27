@@ -26,9 +26,6 @@ def workspace(tmp_path):
         ".python-version",
         "README.md",
         "LICENSE",
-        "docs/LICENSE-CC-BY-4.0",
-        "docs/submission.md",
-        "docs/reproduction.md",
         "pyproject.toml",
         "uv.lock",
         "paper.pdf",
@@ -92,12 +89,22 @@ def test_archives_are_reproducible_and_exclude_private_and_old_files(
     for name in ("paper-source.zip", "supplementary-code.zip"):
         assert (first / name).read_bytes() == (second / name).read_bytes()
         with ZipFile(first / name) as archive:
-            assert any(member.endswith("LICENSE") for member in archive.namelist())
-            assert any(
-                member.endswith("docs/LICENSE-CC-BY-4.0")
-                for member in archive.namelist()
+            licenses = [
+                member for member in archive.namelist() if member.endswith("LICENSE")
+            ]
+            assert len(licenses) == 1
+            license_text = archive.read(licenses[0]).decode()
+            assert "Software: MIT License" in license_text
+            assert (
+                "Research material: Creative Commons Attribution 4.0 International"
+                in license_text
+            )
+            assert "Third-party code, models," in license_text
+            assert not any(
+                "LICENSE-CC-BY-4.0" in member for member in archive.namelist()
             )
             if name == "paper-source.zip":
+                assert "(CITATION.md)" in license_text
                 citation = archive.read("paper-source/CITATION.md").decode()
                 assert "@misc{bodade2026budgeted" in citation
             else:
