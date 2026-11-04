@@ -244,3 +244,5 @@ Prime Intellect provided inference credits. Code and software documentation use
 [MIT](LICENSE#software-mit-license). The paper, original figures, and original research results use
 [CC BY 4.0](LICENSE#research-material-creative-commons-attribution-40-international). Third-party material retains its existing terms.
 Contact [Ayush Bodade](mailto:ayush@latentpaths.com).
+
+[Citation guide](CITATION.md) · [BibTeX](CITATION.bib)
