@@ -236,7 +236,7 @@ applicable licenses and README citation.
   year         = {2026},
   howpublished = {Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 Workshop},
   note         = {Accepted poster; non-archival workshop paper},
-  url          = {https://latentpaths.com/projects/budgeted-predictive-knowledge}
+  url          = {https://openreview.net/forum?id=gcFFvKU0DS}
 }
 ```
 
