@@ -10,7 +10,7 @@ Using supplied change risks and dependencies improves intermediate progress in
 specific comparisons; full-episode success remains low and gains across other
 policies are uncertain. No model weights change.
 
-[Paper](paper.pdf) · [Project](https://latentpaths.com/projects/budgeted-predictive-knowledge) · [OpenReview](https://openreview.net/forum?id=gcFFvKU0DS) · [Experiments](experiments/README.md)
+[Paper](paper.pdf) · [Experiments](experiments/README.md)
 
 *Budgeted Predictive Knowledge for Long-Horizon Agents* — Ayush Bodade.
 Accepted poster, NEmo workshop at NeurIPS 2026.
