@@ -30,7 +30,6 @@ def repository_files(root: Path) -> list[Path]:
         "uv.lock",
         "paper.pdf",
         "scripts/package_submission.py",
-        "experiments/README.md",
         "experiments/studies.json",
         "experiments/episode_results.jsonl",
         "tests/fixtures/numerical_reference.json",
@@ -76,7 +75,7 @@ def package(root: Path, output: Path) -> dict:
     if not report_path.is_file():
         raise ValueError(
             "Submission packaging requires author-local paper/ sources and a verified "
-            "build; see README.md#prepare-the-paper-submission. Use bpk reproduce for public results."
+            "build; see paper/build.py. Use bpk reproduce for public results."
         )
     report = json.loads(report_path.read_text())
     if report["main_pages"] != 4 or report["sha256"] != checksum(root / "paper.pdf"):

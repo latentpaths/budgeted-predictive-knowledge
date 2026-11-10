@@ -30,7 +30,6 @@ def workspace(tmp_path):
         "uv.lock",
         "paper.pdf",
         "scripts/package_submission.py",
-        "experiments/README.md",
         "experiments/studies.json",
         "experiments/episode_results.jsonl",
         "tests/fixtures/numerical_reference.json",
@@ -106,7 +105,7 @@ def test_archives_are_reproducible_and_exclude_private_and_old_files(
             if name == "paper-source.zip":
                 assert "(CITATION.md)" in license_text
                 citation = archive.read("paper-source/CITATION.md").decode()
-                assert "@misc{bodade2026budgeted" in citation
+                assert "@inproceedings{bodadepaperbodade2026budgeted" in citation
             else:
                 assert (
                     "budgeted-predictive-knowledge/src/budgeted_predictive_knowledge/cli.py"
