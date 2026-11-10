@@ -16,7 +16,7 @@ policies are uncertain. No model weights change.
 Accepted poster, NEmo workshop at NeurIPS 2026.
 
 [Reproduce results](#reproduce-the-results) · [Run new experiments](#fresh-runs) ·
-[Develop](#development) · [Prepare the paper submission](#prepare-the-paper-submission)
+[Develop](#development)
 
 ## Reproduce the results
 
