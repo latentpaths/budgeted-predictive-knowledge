@@ -1,29 +1,26 @@
-{
-  "cff-version": "1.2.0",
-  "message": "Please cite the preferred paper for the research, and this software when referring to the implementation. Specify the commit used.",
-  "type": "software",
-  "title": "Budgeted Predictive Knowledge",
-  "authors": [
-    {
-      "family-names": "Bodade",
-      "given-names": "Ayush"
-    }
-  ],
-  "repository-code": "https://github.com/latentpaths/budgeted-predictive-knowledge",
-  "url": "https://github.com/latentpaths/budgeted-predictive-knowledge",
-  "preferred-citation": {
-    "type": "conference-paper",
-    "title": "Which Predictions Are Worth Updating? Budgeted Predictive Knowledge for Long-Horizon Agents",
-    "authors": [
-      {
-        "family-names": "Bodade",
-        "given-names": "Ayush"
-      }
-    ],
-    "url": "https://openreview.net/forum?id=gcFFvKU0DS",
-    "date-released": "2026-09-30",
-    "year": 2026,
-    "collection-title": "Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 workshop",
-    "notes": "Accepted poster; Non-archival workshop paper"
-  }
-}
+cff-version: 1.2.0
+message: Cite this software when using its implementation; cite the related
+  paper or article for the research. Specify the version or commit used.
+  Citation metadata is maintained in latentpaths/website; generated with pnpm
+  citations:sync.
+type: software
+title: Budgeted Predictive Knowledge
+authors:
+  - family-names: Bodade
+    given-names: Ayush
+    orcid: https://orcid.org/0009-0007-2252-8905
+repository-code: https://github.com/latentpaths/budgeted-predictive-knowledge
+url: https://github.com/latentpaths/budgeted-predictive-knowledge
+preferred-citation:
+  type: conference-paper
+  title: Which Predictions Are Worth Updating? Budgeted Predictive Knowledge for
+    Long-Horizon Agents
+  authors:
+    - family-names: Bodade
+      given-names: Ayush
+      orcid: https://orcid.org/0009-0007-2252-8905
+  url: https://openreview.net/forum?id=gcFFvKU0DS
+  date-released: 2026-09-30
+  year: 2026
+  collection-title: Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 workshop
+  notes: Accepted poster; Non-archival workshop paper
