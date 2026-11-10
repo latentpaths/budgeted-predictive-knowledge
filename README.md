@@ -229,16 +229,27 @@ applicable licenses and README citation.
 
 ## Citation
 
+<!-- BEGIN generated citations -->
+
+Citation metadata matches the [ORCID record](https://orcid.org/0009-0007-2252-8905). [Complete bibliography](https://www.latentpaths.com/citations/all.bib).
+
 ```bibtex
-@misc{bodade2026budgeted,
-  author       = {Ayush Bodade},
-  title        = {Which Predictions Are Worth Updating? Budgeted Predictive Knowledge for Long-Horizon Agents},
-  year         = {2026},
-  howpublished = {Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 Workshop},
-  note         = {Accepted poster; non-archival workshop paper},
-  url          = {https://openreview.net/forum?id=gcFFvKU0DS}
+@inproceedings{bodadepaperbodade2026budgeted,
+  author = {Bodade, Ayush},
+  title = {{Which Predictions Are Worth Updating? Budgeted Predictive Knowledge for Long-Horizon Agents}},
+  year = {2026},
+  month = {09},
+  day = {30},
+  date = {2026-09-30},
+  booktitle = {Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 workshop},
+  url = {https://openreview.net/forum?id=gcFFvKU0DS},
+  note = {Accepted poster; Non-archival workshop paper}
 }
 ```
+
+[Citation file](https://www.latentpaths.com/citations/paper/bodade2026budgeted.bib) · [Work](https://openreview.net/forum?id=gcFFvKU0DS)
+
+<!-- END generated citations -->
 
 Prime Intellect provided inference credits. Code and software documentation use
 [MIT](LICENSE#software-mit-license). The paper, original figures, and original research results use
