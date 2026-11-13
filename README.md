@@ -383,7 +383,8 @@ These checks run offline after dependency installation. Inference tests use a mo
   day = {30},
   date = {2026-09-30},
   booktitle = {Neuro-Symbolic Embodied Intelligence (NEmo), NeurIPS 2026 workshop},
-  url = {https://openreview.net/forum?id=gcFFvKU0DS},
+  url = {https://doi.org/10.5281/zenodo.24196448},
+  doi = {10.5281/zenodo.24196448},
   note = {Accepted poster; Non-archival workshop paper}
 }
 ```
