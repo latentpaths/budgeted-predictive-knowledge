@@ -28,7 +28,6 @@ build/
 dist/
 .ipynb_checkpoints/
 
-# Author-local manuscript sources and generated runs
-/paper/
+# Generated runs
 /output/
 AGENTS.md

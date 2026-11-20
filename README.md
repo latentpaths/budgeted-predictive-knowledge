@@ -364,8 +364,8 @@ gains from inconclusive cross-model and Joint-versus-FRD comparisons.
 ```sh
 uv sync --locked --group dev
 uv run --locked pytest -q
-uv run --locked ruff check src tests scripts
-uv run --locked ruff format --check src tests scripts
+uv run --locked ruff check src tests
+uv run --locked ruff format --check src tests
 ```
 
 These checks run offline after dependency installation. Inference tests use a mocked provider.
